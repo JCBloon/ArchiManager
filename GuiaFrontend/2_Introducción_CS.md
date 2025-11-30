@@ -130,7 +130,7 @@ enum EstadoPedido { Pendiente, Enviado, Entregado }
 
 > **NOTA:** Un assembly es un archivo compilado que contiene código ejecutable
 
-![[modificadores.png]]
+![modificadores.png](images/modificadores.png)
 
 ``` csharp
 class Padre { // internal por defecto
