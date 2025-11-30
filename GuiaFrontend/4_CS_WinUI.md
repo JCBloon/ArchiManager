@@ -232,7 +232,7 @@ Pero como ya vimos, el prefijo `x:` solo sirve para conectarse con el code-behin
 
 Por ello usaremos `Binding`.  Cuenta con varios modos dependiendo del uso que le queramos dar:
 
-![[binding.png]]
+![binding.png](images/binding.png)
 
 > No todos los controles soportan todos los modos. Por ejemplo, `TextBox` no admite `OneWayToSource`.
 
