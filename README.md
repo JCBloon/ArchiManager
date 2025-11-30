@@ -92,6 +92,7 @@ Permite almacenar, visualizar y modificar clientes y proyectos, asegurando que c
 
 ## 📂 Estructura del proyecto
 
+```
 ArchiManager/
 ├─ amproject/           # Backend Java-Maven
 ├─ ArchiManagerWinUI/   # Frontend .NET-WinUI3
@@ -100,6 +101,7 @@ ArchiManager/
 │ └── scriptSQL.sql         # Script SQL
 ├─ GuiaFrontend/        # Documentación para front e integración
 └─ README.md
+```
 
 ---
 
