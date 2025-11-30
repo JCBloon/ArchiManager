@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="ArchiManagerWinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArchiManagerWinUI"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:primitives="using:CommunityToolkit.WinUI.UI.Controls.Primitives"
+    >
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            
+            <!-- Button -->
+            <Style x:Key="B_Menu" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Background" Value="#2c6cbc"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Height" Value="150"/>
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource TBLOCK_Normal}" Text="{Binding}" Foreground="White" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- TextBlock -->
+            <Style x:Key="TBLOCK_Normal" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="0,5,0,5"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+
+            <Style x:Key="TBLOCK_TITLE" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+
+            <!-- TextBox -->
+            <!-- ThemeResources para los estados de TextBox-->
+            <SolidColorBrush x:Key="TextControlBackground" Color="#DEDEDE"/>
+            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#CECECE"/>
+            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#AEAEAE"/>
+            
+            <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="Black"/>
+            <SolidColorBrush x:Key="TextControlForegroundFocused" Color="Black"/>
+            <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="Black"/>
+
+
+            <Style x:Key="TBOX_Normal" TargetType="TextBox">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Background" Value="{ThemeResource TextControlBackground}"/>
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource TBLOCK_Normal}" Text="{Binding}"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="TBOX_Normal_OW" TargetType="TextBox" BasedOn="{StaticResource TBOX_Normal}">
+                <Setter Property="AcceptsReturn" Value="True"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+
+
+            <!-- DataGrid -->
+            <SolidColorBrush x:Key="HeaderBackgroundBase" Color="Black"/>
+            <SolidColorBrush x:Key="HeaderBackgroundHover" Color="#1A1A1A"/>
+            <SolidColorBrush x:Key="HeaderForegroundBase" Color="White"/>
+            <SolidColorBrush x:Key="HeaderBorderColor" Color="White"/>
+            <Style x:Key="CustomDataGridColumnHeaderStyle" TargetType="primitives:DataGridColumnHeader">
+                <Setter Property="Foreground" Value="{StaticResource HeaderForegroundBase}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HeaderBorderColor}"/>
+                <!-- Borde blanco (Líneas) -->
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="primitives:DataGridColumnHeader">
+                            <Grid x:Name="RootGrid">
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+
+                                        <!-- Estado al pasar el ratón (PointerOver) -->
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <!-- Fondo Gris Oscuro para sutil interacción -->
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundElement" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HeaderBackgroundHover}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <!-- Estado al presionar (Pressed) -->
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <!-- Fondo Gris Oscuro para sutil interacción -->
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundElement" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HeaderBackgroundHover}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Disabled">
+                                            <!-- Opcional: Color si estuviera deshabilitado -->
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <!-- Otros grupos de estados (SortingStates, FocusStates, etc.) omitidos por simplicidad -->
+                                </VisualStateManager.VisualStateGroups>
+
+                                <!-- Elemento principal del fondo, forzado a BLACK por defecto -->
+                                <Border x:Name="BackgroundElement" 
+                            Background="{StaticResource HeaderBackgroundBase}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                                    <!-- ContentPresenter para el texto (nombre de la columna) -->
+                                    <ContentPresenter x:Name="ContentPresenter"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          Margin="10,0,10,0"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Foreground="{TemplateBinding Foreground}"/>
+
+                                </Border>
+
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="DG_Normal" TargetType="controls:DataGrid">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+
+                <Setter Property="AutoGenerateColumns" Value="False"/>
+                <Setter Property="CanUserReorderColumns" Value="True"/>
+                <Setter Property="CanUserResizeColumns" Value="True"/>
+                <Setter Property="CanUserSortColumns" Value="True"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="SelectionMode" Value="Extended"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="GridLinesVisibility" Value="All"/>
+
+                <Setter Property="Background" Value="LightGray"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="ColumnHeaderStyle" Value="{StaticResource CustomDataGridColumnHeaderStyle}"/>
+            </Style>
+
+            <!-- Grid -->
+            <Style x:Key="GRID_Main" TargetType="Grid">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#456fe8" Offset="0"/>
+                            <GradientStop Color="#19b0ec" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <!-- StackPanel -->
+             <!-- NORMAL -->
+            <Style x:Key="BSP_Normal" TargetType="Border">
+                <Setter Property="Background" Value="LightGray"/>
+                <!-- Bordes -->
+                <Setter Property="CornerRadius" Value="20"/>
+            </Style>
+            
+            <Style x:Key="SP_Normal" TargetType="StackPanel">
+                <Setter Property="Background" Value="LightGray"/>
+            </Style>
+            
+             <!-- INFO -->
+            <Style x:Key="BSP_Info" TargetType="Border">
+                <Setter Property="Background" Value="#71c3f7"/>
+                <Setter Property="Padding" Value="10"/>
+                   <!-- Bordes -->
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.4"/>
+            </Style>
+
+            <Style x:Key="SP_Info" TargetType="StackPanel">
+                <Setter Property="Background" Value="#70D8EB"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+            
+             <!-- UPDATE -->
+            <Style x:Key="BSP_InfoModify" TargetType="Border">
+                <Setter Property="Background" Value="#f19e18"/>
+                <Setter Property="Padding" Value="10"/>
+                <!-- Bordes -->
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.4"/>
+            </Style>
+            
+            <Style x:Key="SP_InfoModify" TargetType="StackPanel">
+                <Setter Property="Background" Value="#EC8932"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+
+            <!-- ADD -->
+            <Style x:Key="BSP_InfoAdd" TargetType="Border">
+                <Setter Property="Background" Value="#5da92f"/>
+                <Setter Property="Padding" Value="10"/>
+                <!-- Bordes -->
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.4"/>
+            </Style>
+            
+            <Style x:Key="SP_InfoAdd" TargetType="StackPanel">
+                <Setter Property="Background" Value="#81A739"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+            
+            <!-- ComboBox -->
+            <Style x:Key="CB_Normal" TargetType="ComboBox">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Background" Value="LightGray"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+
+
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!-- Other merged dictionaries here -->
+                
+                <!-- <ResourceDictionary Source="Styles/Colors.xaml"/> -->
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Other app resources here -->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,157 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>ArchiManagerWinUI</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <Nullable>enable</Nullable>
+	  
+	<!-- CONFIGURACIÓN UNPACKAGED-->
+	  <WindowsPackageType>None</WindowsPackageType>
+	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+
+	  <PublishSingleFile>true</PublishSingleFile>
+	  <SelfContained>true</SelfContained>
+	  <PublishTrimmed>false</PublishTrimmed>
+	  
+
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Assets\Logo\Logo16x16.png" />
+    <Content Remove="Assets\Logo\Logo176x176.png" />
+    <Content Remove="Assets\Logo\Logo256x256.png" />
+    <Content Remove="Assets\Logo\Logo44x44.png" />
+    <Content Remove="Assets\Logo\Logo48x48.png" />
+    <Content Remove="Assets\Logo\Logo88x88.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\Icons\botonAgregar.png" />
+    <None Remove="Assets\Icons\botonAsignarProy.png" />
+    <None Remove="Assets\Icons\botonBuscar.png" />
+    <None Remove="Assets\Icons\botonBuscarWeb.png" />
+    <None Remove="Assets\Icons\botonCancelar.png" />
+    <None Remove="Assets\Icons\botonEliminar.png" />
+    <None Remove="Assets\Icons\botonModificar.png" />
+    <None Remove="Assets\Icons\error.png" />
+    <None Remove="Assets\Icons\noConnection.png" />
+    <None Remove="Assets\Icons\warning.png" />
+    <None Remove="Assets\Logo\LogoArchiManagerr.scale-200.png" />
+    <None Remove="Assets\Logo\LogoArchiManagerr.targetsize-16.png" />
+    <None Remove="Assets\Logo\LogoArchiManagerr.targetsize-256.png" />
+    <None Remove="Assets\Logo\LogoArchiManagerr.targetsize-48.png" />
+    <None Remove="MVVM\View\AddClientView.xaml" />
+    <None Remove="MVVM\View\AddProjectView.xaml" />
+    <None Remove="MVVM\View\ClientListView.xaml" />
+    <None Remove="MVVM\View\DataMenuView.xaml" />
+    <None Remove="MVVM\View\HomePage.xaml" />
+    <None Remove="MVVM\View\ManageClientsView.xaml" />
+    <None Remove="MVVM\View\ManageProjectsView.xaml" />
+    <None Remove="MVVM\View\ProjectListView.xaml" />
+    <None Remove="MVVM\View\SearchProjectView.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ArchiIco.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <!--
+    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+    Tools extension to be activated for this project even if the Windows App SDK Nuget
+    package has not yet been restored.
+  -->
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4948" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.250916003" />
+    <PackageReference Include="QuestPDF" Version="2025.7.4" />
+    <PackageReference Include="WinUIEx" Version="2.8.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\ProjectListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\ClientListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\AddProjectView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\ManageProjectsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\AddClientView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\ManageClientsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\DataMenuView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\SearchProjectView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\SearchClientView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <!--
+    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
+    Explorer "Package and Publish" context menu entry to be enabled for this project even if
+    the Windows App SDK Nuget package has not yet been restored.
+  -->
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+
+  <!-- Publish Properties -->
+  <PropertyGroup>
+    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
+    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
+    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
+    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <ApplicationIcon>ArchiIco.ico</ApplicationIcon>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+  </PropertyGroup>
+</Project>

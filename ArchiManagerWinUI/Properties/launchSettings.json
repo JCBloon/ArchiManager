@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ArchiManagerWinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ArchiManagerWinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

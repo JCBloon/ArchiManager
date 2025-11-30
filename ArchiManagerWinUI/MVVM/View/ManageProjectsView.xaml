@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ArchiManagerWinUI.MVVM.View.ManageProjectsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArchiManagerWinUI.MVVM.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    mc:Ignorable="d">
+
+    <Grid Style="{StaticResource GRID_Main}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- Parte superior -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="10,0,10,0">
+                <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource TBOX_Normal}" Header="Título:" PlaceholderText="Obra Marcelino" Width="300" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding CadastralReference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Referencia Catastral:" PlaceholderText="1234567AA12345"  Width="300" HorizontalAlignment="Left"/>
+                
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">
+                <TextBox Text="{Binding Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Año:" PlaceholderText="2025"  Width="150" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding ExpedientNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Nº Expediente:" PlaceholderText="22_67"  Width="150" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <Border Grid.Column="2" Width="125" Height="150" Margin="40,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource BSP_Normal}">
+                <StackPanel HorizontalAlignment="Center">
+                    <Button Command="{Binding FindProjectCommand}" Background="LightGray">
+                        <Image Source="/Assets/Icons/botonBuscar.png" Height="100"/>
+                    </Button>
+                    <TextBlock Style="{StaticResource TBLOCK_Normal}" Text="BUSCAR" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="20,0,20,0"/>
+
+        <!-- Parte inferior -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Parte izquierda -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Margin="10,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource BSP_InfoModify}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding FoundProject.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Título" Width="200"/>
+                                    <TextBox Text="{Binding ArchiveNParam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Nº Archivo" Width="200" Height="85" VerticalAlignment="Top"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <TextBox Text="{Binding FoundProject.CadastralReference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Referencia Catastral" Width="200"/>
+                                        <Button Command="{Binding SearchCatRefCommand}" Background="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image Source="/Assets/Icons/botonBuscarWeb.png" Height="40"/>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBox Text="{Binding FoundProject.ExpedientNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Nº Expediente" Width="200" Height="85" VerticalAlignment="Top"/>
+                                        <Button Command="{Binding SearchFolderCommand}" Background="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image Source="/Assets/Icons/botonBuscarCarpeta.png" Height="40"/>
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding FoundProject.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Comentario" Width="200" TextWrapping="Wrap" Height="150"/>
+                                    <TextBox Text="{Binding YearParam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Año" Width="200" VerticalAlignment="Top"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Image  Source="{Binding ImageBind}" Width="250" Height="250" Margin="10"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                                    <Button Margin="0,0,20,0" Command="{Binding ChangeImageCommand}" Background="LightGray" HorizontalAlignment="Center">
+                                        <Image Source="/Assets/Icons/botonAgregar.png" Height="50"/>
+                                    </Button>
+                                    <Button Command="{Binding RemoveImageCommand}" Background="LightGray" HorizontalAlignment="Center">
+                                        <Image Source="/Assets/Icons/botonEliminar.png" Height="50"/>
+                                    </Button>
+                                </StackPanel>
+                                <TextBlock Style="{StaticResource TBLOCK_Normal}" Text="{Binding ImageName, Mode=OneWay}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Width="350" Height="140" Margin="0,0,0,10" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource BSP_Normal}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <StackPanel>
+                                    <Button Command="{Binding UpdateProjectCommand}" Background="LightGray" HorizontalAlignment="Center">
+                                        <Image Source="/Assets/Icons/botonModificar.png" Height="80"/>
+                                    </Button>
+                                    <TextBlock Style="{StaticResource TBLOCK_Normal}" Text="MODIFICAR" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <StackPanel>
+                                    <Button Command="{Binding DeleteProjectCommand}" Background="LightGray" HorizontalAlignment="Center">
+                                        <Image Source="/Assets/Icons/botonEliminar.png" Height="80"/>
+                                    </Button>
+                                    <TextBlock Style="{StaticResource TBLOCK_Normal}" Text="ELIMINAR" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1,0,0,0" Margin="10,20,0,20"/>
+
+            <!-- Parte derecha -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Tabla clientes -->
+                <Border Grid.Row="0" Margin="30" Style="{StaticResource BSP_Info}" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <StackPanel>
+                        <controls:DataGrid x:Name="ClientDG" Style="{StaticResource DG_Normal}" ItemsSource="{Binding DataGridClientsCollection}" Margin="20" HorizontalAlignment="Center">
+                            <controls:DataGrid.Columns>
+                                <!-- Quitamos dirección por tener menos espacio -->
+                                <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Name}" />
+                                <controls:DataGridTextColumn Header="Apellido 1" Binding="{Binding Surname1}" />
+                                <controls:DataGridTextColumn Header="Apellido 2" Binding="{Binding Surname2}" />
+                                <controls:DataGridTextColumn Header="DNI" Binding="{Binding Dni}" />
+                                <controls:DataGridTextColumn Header="Teléfono" Binding="{Binding Phone}" />
+
+                                <!-- Columna con botón -->
+                                <controls:DataGridTemplateColumn Header="Desasignar">
+                                    <controls:DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Click="UnassignButton_Click" Background="Transparent" HorizontalAlignment="Center">
+                                                <Image Source="/Assets/Icons/botonEliminar.png" Width="24" Height="24"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </controls:DataGridTemplateColumn.CellTemplate>
+                                </controls:DataGridTemplateColumn>
+                            </controls:DataGrid.Columns>
+                        </controls:DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Asignar cliente -->
+                <Grid Grid.Row="1" Margin="20,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Nombre:" PlaceholderText="Juan"/>
+                        <TextBox Text="{Binding Surname1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Apellido 1:" PlaceholderText="García"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBox Text="{Binding Dni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="DNI:" PlaceholderText="12345678Z"/>
+                        <TextBox Text="{Binding Surname2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TBOX_Normal}" Header="Apellido 2:" PlaceholderText="González"/>
+                    </StackPanel>
+
+                    <Border Grid.Column="2" Width="120" Height="170" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource BSP_Normal}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <Button Command="{Binding AssignProjectCommand}" Background="LightGray" HorizontalAlignment="Center">
+                                <Image Source="/Assets/Icons/botonAsignarProy.png" Height="90"/>
+                            </Button>
+                            <TextBlock Grid.Column="0" Style="{StaticResource TBLOCK_Normal}" Text="ASOCIAR CLIENTE" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

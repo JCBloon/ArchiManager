@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: amproject
+
+    datasource:
+        url: jdbc:mysql://localhost:10200/archidb
+        username: archiuser
+        password: archi
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        hikari:
+            auto-commit: true
+            connection-timeout: 10000
+            transaction-isolation: TRANSACTION_SERIALIZABLE
+
+    jpa:
+        properties:
+            hibernate:
+                format_sql: true
+        hibernate:
+            ddl-auto: none
+server:
+  port: 9212
